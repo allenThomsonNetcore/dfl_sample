@@ -1,8 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
         android:label="sampleapp_bfdl"
-        android:name="${applicationName}"
+        android:name=".MyApplication"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+            android:name="SMT_APP_ID"
+            android:value="38f37c444a1eab297a163435602886d8" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smartech_base/smartech_base.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -11,6 +12,9 @@ class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isLoading = false;
+  
+  String? get username => null;
+
 
   _login() async {
     if (_formKey.currentState!.validate()) {
@@ -20,11 +24,16 @@ class _LoginScreenState extends State<LoginScreen> {
       
       // Simulate login API call
       await Future.delayed(Duration(seconds: 2));
+
+       var username = _usernameController.text;
       
       // Save login state
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLoggedIn', true);
       await prefs.setString('username', _usernameController.text);
+      print('usernameisbeingprintedhere ${username}');
+
+      
       
       setState(() {
         _isLoading = false;
@@ -58,6 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a username';
                   }
+                 Smartech().login(_usernameController.text);
+                 print("usernameisbeingprinted"+_usernameController.text);
                   return null;
                 },
               ),

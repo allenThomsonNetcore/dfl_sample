@@ -3,20 +3,24 @@ plugins {
     id "kotlin-android"
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
+    id("com.google.gms.google-services")
+
 }
 
 android {
     namespace = "com.example.sampleapp_bfdl"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "25.1.8937393"
+
+
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = 17
     }
 
     defaultConfig {
@@ -27,6 +31,7 @@ android {
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
+        multiDexEnabled = true
         versionName = flutter.versionName
     }
 
@@ -39,11 +44,22 @@ android {
     }
 }
 
-dependencies{
 
-  //  api "com.netcore.android:smartech-sdk:${SMARTECH_BASE_SDK_VERSION}"
+dependencies{
+    implementation 'androidx.multidex:multidex:2.0.1' // ADD THIS LINE
+  //  implementation'com.netcore.android:smartech-sdk:3.6.2'
+  //  implementation("com.netcore.android:smartech-sdk:3.6.2")
+    api "com.netcore.android:smartech-appinbox:${SMARTECH_APPINBOX_SDK_VERSION}"
+    api "com.netcore.android:smartech-push:${SMARTECH_PUSH_SDK_VERSION}"
+ //noinspection GradleDependency
+    api "com.netcore.android:smartech-sdk:${SMARTECH_BASE_SDK_VERSION}"
+    implementation platform('com.google.firebase:firebase-bom:33.12.0') // or latest
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.gms:google-services:4.4.2' // or latest version
 
 }
+
+
 
 flutter {
     source = "../.."
